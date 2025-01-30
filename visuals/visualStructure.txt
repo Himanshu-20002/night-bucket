@@ -1,0 +1,14 @@
+SplashScreen
+├── User Authentication
+│   ├── Check Access Token
+│   ├── Check Refresh Token
+│   └── Navigate Based on Role
+├── User Data Loading
+│   ├── Retrieve from Storage
+│   └── Update Zustand Store
+├── Location Access
+│   ├── Request Permissions
+│   └── Fetch User Location
+└── Rendering
+    ├── Display Logo
+    └── Style Container

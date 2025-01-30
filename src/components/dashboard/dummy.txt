@@ -1,0 +1,119 @@
+[
+    {
+        "_id": "6740e58fafaba47dc6654547",
+        "name": "Aashirvaad Superior MP Whole Wheat Atta",
+        "description": "Default Description",
+        "images": [
+            "https://res.cloudinary.com/da41fzsmk/image/upload/v1731751325/products/Atta_Rice_and_Dal/Atta/Aashirvaad_Superior_MP_Whole_Wheat_Atta/t7ejs8piv145t0ruzq4t.jpg",
+            "https://res.cloudinary.com/da41fzsmk/image/upload/v1731751325/products/Atta_Rice_and_Dal/Atta/Aashirvaad_Superior_MP_Whole_Wheat_Atta/kyxgyjl1x6tpqxc3ss4b.jpg",
+            "https://res.cloudinary.com/da41fzsmk/image/upload/v1731751325/products/Atta_Rice_and_Dal/Atta/Aashirvaad_Superior_MP_Whole_Wheat_Atta/hfcxekpfaiv19uacrb56.jpg",
+            "https://res.cloudinary.com/da41fzsmk/image/upload/v1731751325/products/Atta_Rice_and_Dal/Atta/Aashirvaad_Superior_MP_Whole_Wheat_Atta/zysk4k82fcarz0ojx8dh.jpg",
+            "https://res.cloudinary.com/da41fzsmk/image/upload/v1731751325/products/Atta_Rice_and_Dal/Atta/Aashirvaad_Superior_MP_Whole_Wheat_Atta/iuzrmgxsandidzqfdigd.jpg",
+            "https://res.cloudinary.com/da41fzsmk/image/upload/v1731751326/products/Atta_Rice_and_Dal/Atta/Aashirvaad_Superior_MP_Whole_Wheat_Atta/lmqzaozksvpiiavx3ykn.jpg"
+        ],
+        "price": "200",
+        "quantity": "1 unit",
+        "category": "6740e58eafaba47dc6654458",
+        "subCategory": "6740e58eafaba47dc665446a",
+        "sharedLink": "https://www.dropbox.com/scl/fi/s2mwnxn8ltwg1rg2xle7v/product-details.rtf?rlkey=90xmdewk2e0i44tu2t25ivoiw&dl=0",
+        "__v": 0
+    },
+
+
+
+    import { View, TouchableOpacity, TextInput, StyleSheet, FlatList } from 'react-native'
+import React, { useState, useRef, useEffect } from 'react'
+import { RFValue } from 'react-native-responsive-fontsize'
+import CustomText from '@components/ui/CustomText'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import RollingBar from 'react-native-rolling-bar'
+import { navigate } from '@utils/NavigationUtils'
+import { Colors, Fonts } from '@utils/Constants'
+import { fetchProduct } from '@services/ProductService'
+import ProductItem from '@features/category/ProductItem'
+
+const ITEMS_PER_PAGE = 15
+
+const SearchProducts = () => {
+  const [isSearchMode, setIsSearchMode] = useState(false)
+  const inputRef = useRef(null)
+  const [filteredProducts, setFilteredProducts] = useState([])
+  const [products, setProducts] = useState([])
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const onSearch = (text: string) => {
+    const filtered = products.filter(item =>
+      item.name.toLowerCase().includes(text.toLowerCase())
+    )
+    setFilteredProducts(filtered.slice(0, ITEMS_PER_PAGE))
+    setCurrentPage(0)
+  }
+
+  const handlePress = () => {
+    if (!isSearchMode) {
+      setIsSearchMode(true)
+      setTimeout(() => inputRef.current?.focus(), 0)
+    } else {
+      navigate('SearchProducts')
+    }
+  }
+
+  const getProducts = async () => {
+    const fetchedProducts = await fetchProduct()
+    setProducts(fetchedProducts)
+    setFilteredProducts(fetchedProducts.slice(0, ITEMS_PER_PAGE))
+  }
+
+  useEffect(() => {
+    getProducts()
+  }, [])
+
+  const renderItem = ({ item, index }: { item: any; index: number }) => {
+    return <ProductItem item={item} index={index} />
+  }
+
+  const loadMoreItems = () => {
+    const nextPage = currentPage + 1
+    const startIndex = nextPage * ITEMS_PER_PAGE
+    const endIndex = startIndex + ITEMS_PER_PAGE
+    const newItems = products.slice(startIndex, endIndex)
+
+    if (newItems.length > 0) {
+      setFilteredProducts([...filteredProducts, ...newItems])
+      setCurrentPage(nextPage)
+    }
+  }
+
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.container2}
+        activeOpacity={0.8}
+        onPress={handlePress}
+      >
+        {/* ... (rest of the TouchableOpacity content remains the same) ... */}
+      </TouchableOpacity>
+
+      <FlatList
+        data={filteredProducts}
+        keyExtractor={(item) => item._id.toString()}
+        renderItem={renderItem}
+        contentContainerStyle={styles.content}
+        style={styles.flatContainer}
+        numColumns={2}
+        removeClippedSubviews={true}
+        showsVerticalScrollIndicator={true}
+        onEndReached={loadMoreItems}
+        onEndReachedThreshold={0.5}
+        initialNumToRender={ITEMS_PER_PAGE}
+        maxToRenderPerBatch={ITEMS_PER_PAGE}
+        windowSize={ITEMS_PER_PAGE}
+      />
+    </View>
+  )
+}
+
+// ... (rest of the styles remain the same) ...
+
+export default SearchProducts
+
