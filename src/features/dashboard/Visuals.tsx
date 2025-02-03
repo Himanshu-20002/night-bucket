@@ -236,31 +236,8 @@ const Visuals: FC<VisualsProps> = React.memo(({type}) => {
         style={styles.cloud}
       />
 
-      {type === 'tryIt' && (
-        <Video
-          source={require('../../assets/video/PurpleStar.mp4')}
-          style={styles.video}
-          resizeMode="cover"
-          repeat={true}
-          muted={true} // Mute the video if you don't want sound
-        />
-      )}
-      {type === 'games' && (
-        <View style={styles.videoContainer}>
-          <Video
-            source={require('../../assets/video/dancing.mp4')}
-            style={styles.video}
-            resizeMode="cover"
-            repeat={true}
-            muted={true} // Mute the video if you don't want sound
-          />
-          <BlurView
-            style={StyleSheet.absoluteFill}
-            blurType="light" // You can choose 'light', 'dark', or 'xlight'
-            blurAmount={100} // Adjust the blur intensity
-          />
-        </View>
-      )}
+     
+     
       <View style={DynamicStyles.lottieContainer}>
         <View style={styles.lottieWrapper}>
           <LottieView
