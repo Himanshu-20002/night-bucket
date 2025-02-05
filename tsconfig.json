@@ -3,18 +3,18 @@
   "compilerOptions": {
    "typeRoots": ["./node_modules/@types", "./src/types"],
    "types":["jest"],
-   "baseUrl": "./src/",
+   "baseUrl": ".",
    "paths": {
-    "@assets/*": ["assets/*"],
-    "@components/*": ["components/*"],
-    "@navigation/*": ["navigation/*"],
-    "@screens/*": ["screens/*"],
-    "@types/*": ["types/*"],
-    "@utils/*": ["utils/*"],
-    "@services/*": ["services/*"],
-    "@state/*": ["state/*"],
-    "@styles/*": ["styles/*"],
-    "@features/*": ["features/*"]
+    "@components/*": ["src/components/*"],
+    "@features/*": ["src/features/*"],
+    "@navigation/*": ["src/navigation/*"],
+    "@assets/*": ["src/assets/*"],
+    "@screens/*": ["src/screens/*"],
+    "@types/*": ["src/types/*"],
+    "@utils/*": ["src/utils/*"],
+    "@services/*": ["src/services/*"],
+    "@state/*": ["src/state/*"],
+    "@styles/*": ["src/styles/*"]
    }
   }
 }

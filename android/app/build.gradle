@@ -81,6 +81,13 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
+
+    sourceSets {
+        main {
+            assets.srcDirs += ['../src/assets']
+        }
+    }
+
     namespace "com.nightBucket"
     defaultConfig {
         applicationId "com.nightBucket"
@@ -88,12 +95,12 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-      
-    }
+        
+        renderscriptTargetApi 24
+        renderscriptSupportModeEnabled true
 
-    buildFeatures {
-        buildConfig true
-    }
+
+    }    
     signingConfigs {
         debug {
             storeFile file('debug.keystore')

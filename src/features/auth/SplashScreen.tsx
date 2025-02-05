@@ -1,15 +1,15 @@
-import {View, StyleSheet, Alert} from 'react-native';
-import React, {useEffect} from 'react';
-import {Image} from 'react-native';
+import {View, StyleSheet, Alert, Dimensions} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
 import {Colors} from '../../utils/Constants';
-import logo from '@assets/images/splash_logo.jpeg';
-import {screenHeight, screenWidth} from '../../utils/Scaling';
 import Geolocation from '@react-native-community/geolocation';
-import {useAuthStore} from '../../state/authStore';
+import {useAuthStore} from '@state/authStore';
 import {storage, tokenStorage} from '../../state/storage';
 import {jwtDecode} from 'jwt-decode';
 import {refresh_token, refetchUser} from '../../services/authService';
 import {resetAndNavigate} from '../../utils/NavigationUtils';
+import Rive, { RiveRef} from 'rive-react-native';
+
+
 
 Geolocation.setRNConfiguration({
   skipPermissionRequests: false,
@@ -23,6 +23,8 @@ interface DecodedToken {
 }
 const SplashScreen = () => {
   const {user, setUser} = useAuthStore();
+  const riveRef = useRef<RiveRef>(null);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const tokenCheck = async () => {
     const accessToken = tokenStorage.getString('accessToken') as string;
     const refreshToken = tokenStorage.getString('refreshToken') as string;
@@ -77,31 +79,57 @@ const SplashScreen = () => {
     const fetchUserLocation = async () => {
       try {
         Geolocation.requestAuthorization();
-        tokenCheck();
+       await  tokenCheck();
       } catch (error) {
         Alert.alert('Error', 'Sorry, we could not get your location');
       }
     };
-    const timeoutId = setTimeout(fetchUserLocation, 1000);
+    const timeoutId = setTimeout(fetchUserLocation, 2000);
     return () => clearTimeout(timeoutId);
   }, []);
+  
+
+
+  const handleAnimationComplete = () => {
+    console.log("animation finished");
+    setIsAnimationComplete(true);
+  };
+
+
   return (
     <View style={styles.container}>
-      <Image source={logo} style={styles.logo} />
+        <View style={styles.animationWrapper}>
+        <Rive
+          ref={riveRef}
+          resourceName="nightbucket"
+          style={styles.animation}
+          autoplay={!isAnimationComplete}
+          // onLoopEnd={handleAnimationComplete}
+        />
+        </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.primary,
+    backgroundColor:"blue",
     flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  animationWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logo: {
-    width: screenWidth * 0.7,
-    height: screenHeight * 0.7,
-    resizeMode: 'contain',
+  animation: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
 });
 

@@ -1,7 +1,7 @@
 import { View,  StyleSheet, SafeAreaView, FlatList, ActivityIndicator, Text } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { Colors } from '../../utils/Constants'
-import { useAuthStore } from '@state/authStore'
+import { useAuthStore } from '../../state/authStore'
 import DeliveryHeader from '../../components/delivery/DeliveryHeader'
 import TabBar from './TabBar'
 import { fetchCurrentOrdersforDelivery } from '../../services/OrderService'

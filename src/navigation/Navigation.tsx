@@ -14,7 +14,7 @@ import OrderSuccess from '../features/order/OrderSuccess';
 import LiveTracking from '../features/map/LiveTracking';
 import Profile from '../features/profile/Profile';
 import DeliveryMap from '../components/delivery/DeliveryMap';
-import ListDetail from '@components/dashboard/ListDetail';
+import ListDetail from '../components/dashboard/ListDetail';
 import SearchProducts from '@components/dashboard/SearchProducts';
 const Navigation: FC = () => {
   return (
