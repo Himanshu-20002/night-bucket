@@ -12,7 +12,7 @@ const App = () => {
     <GestureHandlerRootView style={{ flex: 1 }}>
     <Provider store={store}>
         <Navigation/>
-        <StatusBar backgroundColor='transparent' barStyle='dark-content' translucent />
+        <StatusBar backgroundColor='#0672ffff' barStyle='dark-content' translucent />
     </Provider>
     </GestureHandlerRootView>
    

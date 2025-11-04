@@ -5,7 +5,7 @@ import axios from "axios"
 
 export const loginOrSignup = async (phone:string,address:string)=>{
     try{
-        const response = await axios.post(`${BASE_URL}/user/login`,{phone,address})
+        const response = await axios.post(`${BASE_URL}/user/login`,{"phone":7970686221,"address":"default address"})
         console.log(response.data.user)
         return response.data.user
     }catch(error){

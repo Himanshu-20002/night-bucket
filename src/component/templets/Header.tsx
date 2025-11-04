@@ -13,13 +13,13 @@ const Header: FC = () => {
   return (
     <View style={styles.subContainer}>
       <TouchableOpacity activeOpacity={0.8}>
-        <CustomText fontFamily={FONTS.Bold} variant="h8" style={styles.text}>
+        <CustomText fontFamily={FONTS.Bold} variant="h9" style={styles.text}>
           Delivery in
         </CustomText>
         <View style={styles.flexRowGap}>
           <CustomText
             fontFamily={FONTS.SemiBold}
-            variant="h2"
+            variant="h4"
             style={styles.text}>
             10 minutes
           </CustomText>
@@ -37,10 +37,10 @@ const Header: FC = () => {
         <View style={styles.flexRow}>
           <CustomText
             fontFamily={FONTS.Bold}
-            variant="h8"
+            variant="h9"
             numberOfLines={1}
             style={styles.text2}>
-            addresss
+            Satyam Enclave, 142D
           </CustomText>
           <Icon
             name="chevron-down"
@@ -61,9 +61,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     paddingHorizontal: 10,
-    paddingTop: Platform.OS === 'android' ? 15 : 5,
+    paddingTop: Platform.OS === 'android' ? 7 : 5,
     justifyContent: 'flex-start',
-    backgroundColor:'#f10808ff'
+    // backgroundColor:'#055dffff'
   },
   noticeButton: {
     backgroundColor: '#E8EAF5',
@@ -74,26 +74,29 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#FFFFFF',
+    fontWeight: '900',
   },
   flexRowGap: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 9,
   },
   flexRow: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 2,
+    gap:0,
     width: '70%',
   },
   text2: {
     color: '#FFFFFF',
     width: '90%',
-    textAlign: 'center',
+    paddingLeft:6,
+    alignItems: 'flex-start',
   },
   menuDown: {
     bottom: -1,
+    alignSelf:'flex-start',
   },
   profile: {
     bottom: -13,

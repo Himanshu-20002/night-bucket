@@ -34,9 +34,9 @@ const StickySearchBar: FC<StickySearchBarProps> = ({selectedIndex,setSelectedInd
       <AnimatedTab
         data={[
           {icon: 'home', label: 'home'},
-          {icon: 'bookmark-multiple', label: 'saved'},
           {icon: 'food', label: 'food'},
-          {icon: 'sale', label: 'buccket'},
+          {icon: 'water', label: 'water'},
+        
         ]}
         selectedIndex={selectedIndex}
         onChange={(index) => {setSelectedIndex(index)}}

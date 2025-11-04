@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 6,
-    marginTop: 14,
+    marginTop: 4,
 
 
   },
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 2,
     borderRadius: 9,
-    marginTop:20,
+    marginTop:9,
     marginLeft:5
   },
   rollingContainer: {

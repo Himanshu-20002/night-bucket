@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet ,Image, Touchable, TouchableOpacity} from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import CustomSafeAreaView from '../../component/atoms/CustomSafeAreaView'
 import { RFValue } from 'react-native-responsive-fontsize'
-import { useAppSelector } from '@store/reduxHook'
+import { useAppDispatch, useAppSelector } from '@store/reduxHook'
 import { select } from 'redux-saga/effects'
-import { selectCartItems } from './api/slice'
+import { fetchCart, selectCartItems } from './api/slice'
 import { FlatList } from 'react-native-gesture-handler'
 import { Colors, screenHeight } from '@utils/Constants'
 import GreenUniversalAdd from '@modules/products/atoms/GreenUniversalAdd'
@@ -15,9 +15,17 @@ import PlaceOrderButton from './atoms/PlaceOrderButton'
 const Cart = () => {
   const cart = useAppSelector(selectCartItems)
   const user = useAppSelector(state => state.account.user)
-  
+   const dispatch = useAppDispatch();
+   useEffect(() => {
+    if (user?._id) {
+      dispatch(fetchCart(user._id));
+    }
+  }, [user?._id, dispatch]);
+
 
   const renderItem = ({ item ,index }) => {
+
+  
     return (
       <View style={styles.itemContainer} key={index}>
         <View style={styles.itemImageContainer}>

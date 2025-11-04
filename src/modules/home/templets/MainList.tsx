@@ -14,8 +14,8 @@ const sectionComponents:{[key:string]:React.ComponentType<any>} = {
   categories:Categories,
   sponser:Sponser,
   // vertical_list:VerticalList,
-  horizontal_list:HorizontalList,
-  animated_horizontal_list:AnimatedHorizontalList
+  // horizontal_list:HorizontalList,
+  // animated_horizontal_list:AnimatedHorizontalList
 }
 const PAGE_SIZE = 4
 

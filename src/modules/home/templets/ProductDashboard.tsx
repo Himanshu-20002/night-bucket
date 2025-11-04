@@ -27,14 +27,16 @@ import { FONTS  as Fonts} from '@utils/Constants';
   import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
   import StickySearchBar from './StickySeacrchBar'
 import Visuals from '../molecules/Visuals';
+import FoodDashboard from './FoodDashboard';
+import ServiceDashboard from './ServiceDashboard';
 
 //   import withCart from '../cart/WithCart';
 //   import withLiveStatus from '../map/withLiveStatus';
 //   //Initial State: The drawer is closed and hidden from view. This is like the notice being off-screen, represented by the initial value of NOTICE_HEIGHT.
 //   const NOTICE_HEIGHT = -(NoticeHeight + 12); //positions the notice off-screen (above the visible area). This means that when the component first renders, the notice is hidden.
   
-  const ProductDashboard = ({scrollYGlobal}) => {
-    const [selectedIndex, setSelectedIndex] = useState(0);
+  const ProductDashboard = ({scrollYGlobal ,selectedTab,setSelectedTab}) => {
+    // const [selectedIndex, setSelectedIndex] = useState(0);
   
     const { scrollY, expand } = useCollapsibleContext()
     const previousScrollY = useRef<number>(0)
@@ -57,79 +59,62 @@ import Visuals from '../molecules/Visuals';
     // `noticePosition` is an animated value that controls the vertical position of a notice (like a notification or alert) on the screen. It is initialized to a value that positions the notice off-screen (above the visible area).
 
   
-    console.log('im product dashboard');
-    const renderVisuals = () => {
-      switch (selectedIndex) {
-        case 0:
-          return <Visuals type="home" />;
-        case 1:
-          return <Visuals type="saved" />;
-        case 2:
-          return <Visuals type="food" />;
-        case 3:
-          return <Visuals type="tryIt" />;
-        case 4:
-          return <Visuals type="games" />;
-        default:
-          return <Visuals type="default" />;
-      }
-    };
-  
+    const renderDashboard = () => {
+    switch (selectedTab) {
+      case 0:
+        return <MainList scrollYGlobal={scrollYGlobal} /> // Home
+      case 1:
+        return <FoodDashboard /> // Food
+      case 2:
+        return <ServiceDashboard /> // Service
+      default:
+        return <MainList scrollYGlobal={scrollYGlobal} />
+    }
+  }
   
   
     return (
     
   
         <>
-          <SafeAreaView />
-          <Animated.View style={[styles.backToTop, backtoTopStyle]}>
-            <TouchableOpacity
-              onPress={() => {
-                scrollY.value = 0
-                expand()
-              }}
-              style={{ flexDirection: 'row', alignItems: 'center', gap: 6, zIndex: 999 }}>
-              <Icon name="arrow-up-circle" size={RFValue(12)} color="white" />
-              <CustomText variant="h9" fontFamily={Fonts.SemiBold} style={{ color: 'white' }}>Back to top</CustomText>
-            </TouchableOpacity>
-          </Animated.View>
-          <CollapsibleContainer style={styles.panelContainer}>
-            <CollapsibleHeaderContainer containerStyle={styles.transparent}>
-              <AnimatedHeader/>
-  
-              <StickySearchBar
-              selectedIndex={selectedIndex}
-              setSelectedIndex={setSelectedIndex}
-            />
-  
-  
-  
-            </CollapsibleHeaderContainer>
-            <CollapsibleScrollView
-              nestedScrollEnabled
-              style={styles.panelContainer}
-              showsVerticalScrollIndicator={false}
-              
-  
-            >
-              {/* {renderVisuals()} */}
-  
-  
-               {<MainList scrollYGlobal={scrollYGlobal} /> }
-  
-                 
-  
-              <View style={{ backgroundColor: '#F8F8F8', padding: 20 }}>
-                <CustomText
-                  fontSize={RFValue(32)}
-                  fontFamily={Fonts.Bold}
-                  style={{ opacity: 0.2 }}>
-                  India's last minute app 🥭
-                </CustomText>
-                <CustomText
+      <SafeAreaView />
+      <Animated.View style={[styles.backToTop, backtoTopStyle]}>
+        <TouchableOpacity
+          onPress={() => {
+            scrollY.value = 0
+            expand()
+          }}
+          style={{ flexDirection: 'row', alignItems: 'center', gap:6, zIndex: 999 ,}}>
+          <Icon name="arrow-up-circle" size={RFValue(12)} color="white" />
+          <CustomText variant="h9" fontFamily={Fonts.SemiBold} style={{ color: 'white' }}>Back to top</CustomText>
+        </TouchableOpacity>
+      </Animated.View>
+      <CollapsibleContainer style={styles.panelContainer}>
+        <CollapsibleHeaderContainer containerStyle={styles.transparent}>
+          <AnimatedHeader />
+          {/* Pass selectedTab and setSelectedTab */}
+          <StickySearchBar
+            selectedIndex={selectedTab}
+            setSelectedIndex={setSelectedTab}
+          />
+        </CollapsibleHeaderContainer>
+        <CollapsibleScrollView
+          nestedScrollEnabled
+          style={styles.panelContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          {renderDashboard()}
+          <View style={{ backgroundColor: '#F8F8F8', padding: 20 }}>
+            <CustomText
+              fontSize={RFValue(32)}
+              fontFamily={Fonts.Bold}
+              style={{ opacity: 0.2 }}>
+              no cravings
+            </CustomText>
+            <CustomText
                   fontFamily={Fonts.Bold}
                   style={{ marginTop: 10, paddingBottom: 100, opacity: 0.2 }}>
-                  Developed with ❤️ By himanshu
+                  Developed with ❤️
                 </CustomText>
               </View>
             </CollapsibleScrollView>
@@ -144,7 +129,7 @@ import Visuals from '../molecules/Visuals';
       backgroundColor: '#ffsdf'
     },
     transparent: {
-      backgroundColor: 'transparent',
+      backgroundColor: '#0672ffff',
     },
     visualsContainer: {
       position: 'absolute',

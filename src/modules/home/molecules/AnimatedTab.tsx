@@ -48,6 +48,7 @@ export default function AnimatedTab({
           padding:5,
           justifyContent:'center',
           alignItems:'center',
+          
           gap:3,
           width:tabWidth,
           flexDirection:'row',

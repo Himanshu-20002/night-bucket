@@ -7,6 +7,7 @@ import { navigate } from '@navigation/NavigationUtil'
 import img from '../../../assets/icons/grocery.png'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { getProductsByCategory } from '@modules/products/api/getProducts'
+import GreenUniversalAdd from '@modules/products/atoms/GreenUniversalAdd'
 
 const AnimatedHorizontalList: FC<{ data: any }> = ({ data }) => {
   const [products, setProducts] = useState([])
@@ -14,6 +15,7 @@ const AnimatedHorizontalList: FC<{ data: any }> = ({ data }) => {
   const fetchProducts = async () => {
     const data = await getProductsByCategory("67af315c4ff2ce42941e9fa4")
     setProducts(data)
+
   }
   useEffect(() => {
 
@@ -26,49 +28,68 @@ const AnimatedHorizontalList: FC<{ data: any }> = ({ data }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={img} style={styles.img} />
+      <View style={styles.headerContainer}>
+        <Image source={img} style={styles.img} />
 
-      <Text style={{ fontWeight: '800', color: '#ffff' }}>bucket combo</Text>
-      <View style={styles.textContainer}>
-        <Text style={styles.textStyle}>at 99</Text>
-        <Icon name="cart-plus" size={RFValue(22)} color="white" />
+        <Text style={{ fontWeight: '800', color: '#ffff' }}>BUCKET COMBO</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.textStyle}>at 99</Text>
+          <Icon name="cart-plus" size={RFValue(22)} color="white" />
+        </View>
       </View>
-      <FlatList
-      data={data?.data}
-      keyExtractor={(item)=>item.id}
-      horizontal
-      renderItem={({item,index})=>(
-        <Pressable style={styles.imgContainer} key={index} onPress={()=>navigate('Categories')}>
-          <Image source={{uri:item.image_uri}} style={styles.img}/>
-
-        </Pressable>
-        
-        
-
-      )}
-      showsHorizontalScrollIndicator={false}
-      />
-      {/* <TouchableOpacity key={index} onPress={() => navigate('Product', {
-        id: item._id,
-        name: item.name
-      })} style={styles.itemContainer}>
-        <Image source={{ uri: item.image_uri }} style={styles.img} />
-        <Text style={styles.name}>{item.name}</Text>
+      <View style={styles.listContainer}>
+        <FlatList
+          data={products}
+          keyExtractor={(item) => item._id}
 
 
 
-      </TouchableOpacity> */}
+
+          renderItem={({ item, index }) => (
+            <Pressable style={styles.imgContainer} key={index} onPress={() => navigate('Categories')}>
+              <Image source={{ uri: item.image_uri }} style={styles.img} />
+              <Text style={{ fontWeight: '600', fontSize: RFValue(12), marginTop: 5 }}>{item.name}</Text>
+              <Text style={{ fontWeight: '700', fontSize: RFValue(14), marginTop: 5, color: '#6200ee' }}>₹ {item.price}</Text>
+              <GreenUniversalAdd item={item} />
+            </Pressable>
+
+
+
+          )}
+          showsHorizontalScrollIndicator={false}
+        />
+
+      </View>
+
 
     </View>
   )
 }
 const styles = StyleSheet.create({
+  listContainer: {
+    marginTop: 10,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'red',
+    width: screenWidth * 1,
+
+    flexWrap: 'wrap',
+    flex: 1,
+
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: screenWidth * 1,
+    backgroundColor: '#6200ee',
+
+  },
   container: {
     marginVertical: 13,
-    backgroundColor: '#fd2121ff',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
+    backgroundColor: '#e1e1e1ff',
+    flex: 1,
     // height:screenWidth*0.6
 
   },
@@ -93,10 +114,14 @@ const styles = StyleSheet.create({
 
   },
   imgContainer: {
-    width: screenWidth * 0.45,
-    height: screenWidth * 0.6,
-    marginRight: 14
+    width: screenWidth * 1,
+    height: screenWidth * 0.5,
+    marginRight: 14,
+    padding: 10,
+    // backgroundColor:'#7d7d7d',
+
   }
+
 })
 
 export default AnimatedHorizontalList

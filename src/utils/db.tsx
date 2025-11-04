@@ -87,16 +87,16 @@ export const dynamicDashboardData = [
             { id: 5, path: "", image_uri: 'https://rukminim2.flixcart.com/image/536/644/xif0q/trouser/r/k/5/30-phtr000026-highlander-original-imagua3nckfuzzgw.jpeg?q=60&crop=false' },
         ]
     },
-    {
-        type: "horizontal_list",
-        title: "Featured on Kart",
-        data: [
-            { id: 1, path: "", image_uri: 'https://rukminim2.flixcart.com/fk-p-flap/480/720/image/a346fdef9457ab5e.jpg?q=20' },
-            { id: 2, path: "", image_uri: 'https://rukminim2.flixcart.com/fk-p-flap/480/720/image/1bd8d123afe6cd26.jpg?q=20' },
-            { id: 3, path: "", image_uri: 'https://rukminim2.flixcart.com/fk-p-flap/480/720/image/725a60752b6ac21d.jpg?q=20' },
-            { id: 4, path: "", image_uri: 'https://rukminim2.flixcart.com/fk-p-flap/480/720/image/2b990fef244e3d2f.jpg?q=20' },
-        ]
-    },
+    // {
+    //     type: "horizontal_list",
+    //     title: "Featured on Kart",
+    //     data: [
+    //         { id: 1, path: "", image_uri: 'https://rukminim2.flixcart.com/fk-p-flap/480/720/image/a346fdef9457ab5e.jpg?q=20' },
+    //         { id: 2, path: "", image_uri: 'https://rukminim2.flixcart.com/fk-p-flap/480/720/image/1bd8d123afe6cd26.jpg?q=20' },
+    //         { id: 3, path: "", image_uri: 'https://rukminim2.flixcart.com/fk-p-flap/480/720/image/725a60752b6ac21d.jpg?q=20' },
+    //         { id: 4, path: "", image_uri: 'https://rukminim2.flixcart.com/fk-p-flap/480/720/image/2b990fef244e3d2f.jpg?q=20' },
+    //     ]
+    // },
     {
         type: "vertical_list",
         title: "BEST OF BRAND OFFERS",
